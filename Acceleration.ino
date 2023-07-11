@@ -101,23 +101,26 @@ void loop()
   if (stepDetected())
   {
     previous_position = getCurrentPosition();
-    Serial.print("heading: "); Serial.println(gyroHeading);
-    Serial.print("Step Length: "); Serial.println(previous_step_length);
-    Serial.print("Position: "); Serial.print("\t");
-    Serial.print(previous_position.x); Serial.print("\t");
+    Serial.print("heading: ");
+    Serial.println(gyroHeading);
+    Serial.print("Step Length: ");
+    Serial.println(previous_step_length);
+    Serial.print("Position: ");
+    Serial.print("\t");
+    Serial.print(previous_position.x);
+    Serial.print("\t");
     Serial.println(previous_position.y);
 
     // optimalGPSAlgorithm()  //Call optimal code usage //uncommend to enable
 
-    
     // Check is user is already outside the perimeter
     if (isOutsidePerimeter)
     {
-                      // TODO : Send distress signals to concerned people every 1 minute
-          if (millis() - previousActiveTransmission >= 1800000)
-          {
-            readGPS();                                          // Check the GPS on updated position
-                float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
+      // TODO : Send distress signals to concerned people every 1 minute
+      if (millis() - previousActiveTransmission >= 1800000)
+      {
+        readGPS();                                          // Check the GPS on updated position
+        float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
 
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
@@ -127,10 +130,9 @@ void loop()
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
         }
-            previousActiveTransmission = millis();
-            // TODO : Send distress signals to concerned people
-            
-          }
+        previousActiveTransmission = millis();
+        // TODO : Send distress signals to concerned people
+      }
     }
     else
     {
@@ -179,80 +181,80 @@ void loop()
     }
   }
 
-    delay(50); // delay to sample meaningful values
+  delay(50); // delay to sample meaningful values
 }
 
 // Function to optimize GPS sampling
 void optimalGPSAlgorithm()
 {
-    // Check is user is already outside the perimeter
-    if (isOutsidePerimeter)
+  // Check is user is already outside the perimeter
+  if (isOutsidePerimeter)
+  {
+    // TODO: Check the current heading if it the same drift or off
+    if (LOWER_HEADING <= gyroHeading && gyroHeading >= HIGHER_HEADING)
     {
-      // TODO: Check the current heading if it the same drift or off
-      if (LOWER_HEADING <= gyroHeading && gyroHeading >= HIGHER_HEADING)
+      if (((millis() - lastGPSSamplingTime) / 1000) >= currentGPSSamplingInterval)
       {
-        if (((millis() - lastGPSSamplingTime) / 1000) >= currentGPSSamplingInterval)
-        {
-          Serial.println("INFO: Next GPS read reached");
-          sampleGPS();
-        }
-      }
-      else
-      {
-        Serial.println("INFO: User made a turn");
-        HIGHER_HEADING = int(gyroHeading + HEADING_DRIFT) % 360;
-        LOWER_HEADING = int(gyroHeading - HEADING_DRIFT) % 360;
-
+        Serial.println("INFO: Next GPS read reached");
         sampleGPS();
       }
     }
     else
     {
-      // Check distance from origin not to exceed HOME_RADIUS
-      if (getDistanceFromOrigin() >= HOME_RADIUS)
+      Serial.println("INFO: User made a turn");
+      HIGHER_HEADING = int(gyroHeading + HEADING_DRIFT) % 360;
+      LOWER_HEADING = int(gyroHeading - HEADING_DRIFT) % 360;
+
+      sampleGPS();
+    }
+  }
+  else
+  {
+    // Check distance from origin not to exceed HOME_RADIUS
+    if (getDistanceFromOrigin() >= HOME_RADIUS)
+    {
+      Serial.println("Inertia out of perimeter");
+      readGPS();                                          // Check the GPS on updated position
+      float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
+
+      // Check if the new position is within the HOME_RADIUS
+      if (currentPosition <= HOME_RADIUS)
       {
-        Serial.println("Inertia out of perimeter");
-        readGPS();                                          // Check the GPS on updated position
-        float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
-
-        // Check if the new position is within the HOME_RADIUS
-        if (currentPosition <= HOME_RADIUS)
-        {
-          Serial.println("WARNING: Was a false alarm");
-          isOutsidePerimeter = false; // set flag is in perimeter
-          isMovingAway = false;
-          // TODO: reset the postioning coordinates for inertia sensor
-        }
-        else
-        {
-          Serial.println("WARNING: User out of perimeter");
-          isMovingAway = true;
-          isOutsidePerimeter = true; // set flag is outside perimeter
-          HIGHER_HEADING = int(gyroHeading + HEADING_DRIFT) % 360;
-          LOWER_HEADING = int(gyroHeading - HEADING_DRIFT) % 360;
-
-          // TODO : Send distress signals to concerned people every 1 minute
-          if (millis() - previousActiveTransmission > 60000)
-          {
-            previousActiveTransmission = millis();
-            // TODO : Send distress signals to concerned people
-          }
-        }
-        LAST_GPS_DISTANACE = currentPosition;
+        Serial.println("WARNING: Was a false alarm");
+        isOutsidePerimeter = false; // set flag is in perimeter
+        isMovingAway = false;
+        // TODO: reset the postioning coordinates for inertia sensor
       }
       else
       {
-        isOutsidePerimeter = false; // set the flag they are in perimeter
-        // Serial.println("Within HOME_RADIUS");
+        Serial.println("WARNING: User out of perimeter");
+        isMovingAway = true;
+        isOutsidePerimeter = true; // set flag is outside perimeter
+        HIGHER_HEADING = int(gyroHeading + HEADING_DRIFT) % 360;
+        LOWER_HEADING = int(gyroHeading - HEADING_DRIFT) % 360;
 
-        // TODO : Check if last idle transmission is more than 30 minutes
-        if (millis() - previousIdleTransmission > 1800000)
+        // TODO : Send distress signals to concerned people every 1 minute
+        if (millis() - previousActiveTransmission > 60000)
         {
-          // TODO : Send idle transmission to concerned people
-          previousIdleTransmission = millis();
+          previousActiveTransmission = millis();
+          // TODO : Send distress signals to concerned people
         }
       }
-    }  
+      LAST_GPS_DISTANACE = currentPosition;
+    }
+    else
+    {
+      isOutsidePerimeter = false; // set the flag they are in perimeter
+      // Serial.println("Within HOME_RADIUS");
+
+      // TODO : Check if last idle transmission is more than 30 minutes
+      if (millis() - previousIdleTransmission > 1800000)
+      {
+        // TODO : Send idle transmission to concerned people
+        previousIdleTransmission = millis();
+      }
+    }
+  }
 }
 
 // Function to detect a step
