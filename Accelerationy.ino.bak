@@ -34,13 +34,13 @@ void setup()
   mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_2);
 
   // Calibrate MPU6050
-  calibrateMPU6050();
+  calibrateMPU6050m();
 }
 
 void loop()
 {
 
-  applyLowPassFilter(); // smooth out the acceleration data
+  applyLowPassFilterm(); // smooth out the acceleration data
 
   // Calculate the magnitude of acceleration
   float accelMagnitude = sqrt(pow(accelX, 2) + pow(accelY, 2) + pow(accelZ, 2));
@@ -79,7 +79,7 @@ delay(50); // delay to sample meaningful values
 }
 
 // Function to apply a low-pass filter to acceleration data
-void applyLowPassFilter()
+void applyLowPassFilterm()
 {
   const float alpha = 0.2; // Smoothing factor
   float ax_filtered, ay_filtered, az_filtered;
@@ -96,15 +96,15 @@ void applyLowPassFilter()
 }
 
 // Function to calibrate MPU6050
-void calibrateMPU6050()
+void calibrateMPU6050m()
 {
   const int numSamples = 100;
 
   for (int i = 0; i < numSamples; i++)
   {
-    int16_t accelX = mpu.getAccelerationX();
-    int16_t accelY = mpu.getAccelerationY();
-    int16_t accelZ = mpu.getAccelerationZ();
+    accelX = mpu.getAccelerationX();
+    accelY = mpu.getAccelerationY();
+    accelZ = mpu.getAccelerationZ();
 
     accelXOffset += accelX;
     accelYOffset += accelY;
