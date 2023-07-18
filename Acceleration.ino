@@ -1,17 +1,39 @@
+#include <Arduino.h>
 #include <Wire.h>
-#include <MPU6050.h>
+#include <MPU6050_6Axis_MotionApps20.h>
 #include <TinyGPS++.h>
 #include "I2Cdev.h"
 #include <math.h>
-
+#include <HardwareSerial.h>
+// #include <SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library.h>
+#define Rak3172_TX 17
+#define Rak3172_RX 16 
+#define GPS_TX 27
+#define GPS_RX 26
+#define GPS_SWITCH 14
+#define INTERRUPT_PIN 2
+#define FIFO_BUFFER_SIZE 42 // maximum packet size plus 2 for the header bytes
 MPU6050 mpu;
-
+HardwareSerial gpsSerial(1);
 float HOME_LATITUDE = 0.0;
 float HOME_LONGITUDE = 0.0;
-
+//SFE_MAX1704X lipo;
 /* Headings to determine movement direction
    Used to see if the direction user taking leads home or away
   */
+ //function prototypes
+void calibrateMPU6050();
+void increaseGPSSamplingRate();
+void decreaseGPSSamplingRate();
+float getDistanceFromOrigin();
+float getGPSDistanceFromOrigin();
+void applyLowPassFilter();
+float makovStepLength();
+void computeHeading();
+void readGPS();
+void sampleGPS();
+void init_rak3172();
+bool stepDetected();
 float HIGHER_HEADING = 0.0;
 float LOWER_HEADING = 0.0;
 #define HEADING_DRIFT 30 // this will be added and subtracted from the current heading
@@ -31,7 +53,7 @@ bool isMovingAway = false;
 float currentLatitude = 0.0;
 float currentLongitude = 0.0;
 
-float HOME_RADIUS = 20.0; // in meters
+float HOME_RADIUS = 10.0; // in meters
 
 TinyGPSPlus gps; // The TinyGPS++ object
 
@@ -40,10 +62,6 @@ TinyGPSPlus gps; // The TinyGPS++ object
 // TRANSIMISSIONS SECTION
 unsigned long previousIdleTransmission = millis();
 unsigned long previousActiveTransmission = millis();
-
-#define GPS_SWITCH 18
-#define INTERRUPT_PIN 2
-#define FIFO_BUFFER_SIZE 42 // maximum packet size plus 2 for the header bytes
 uint8_t fifoBuffer[FIFO_BUFFER_SIZE];
 
 float gyroHeading;
@@ -57,7 +75,7 @@ struct Postion
 };
 
 Postion previous_position = {0.0, 0.0}; // Initialize position to (0,0)
-
+// Postion getCurrentPosition();
 // MPU6050 calibration values
 int16_t accelXOffset = 0;
 int16_t accelYOffset = 0;
@@ -83,33 +101,48 @@ float valley = 0;
 void setup()
 {
   Wire.begin();
-  Serial.begin(9600);
-  Serial2.begin(9600); // GPS baud rate
-
+  Serial.begin(115200);
+  Serial2.begin(115200,SERIAL_8N1,Rak3172_RX,Rak3172_TX); // GPS baud rate
+  gpsSerial.begin(9600,SERIAL_8N1,GPS_RX,GPS_TX);
   mpu.initialize();
-  mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_2);
-
+  mpu.setFullScaleAccelRange(0x00);
   pinMode(INTERRUPT_PIN, INPUT);
   pinMode(GPS_SWITCH, OUTPUT); // use digital pin 18 to toggle the GPS
-
+  // if (lipo.begin() == false) // Connect to the MAX17048 using the default wire port
+  // {
+  //   Serial.println(F("MAX17048 not detected. Please check wiring. Freezing."));
+  //   while (1)
+  //     ;
+  // }
   // Calibrate MPU6050
   calibrateMPU6050();
+  // init_rak3172(); //initialize lorawan communcation
 }
-
 void loop()
 {
+  //readGPS();
+  while(Serial.available())
+  {
+    if(Serial.read()=='r')
+    {
+      esp_restart();
+    }
+  }
   if (stepDetected())
   {
     previous_position = getCurrentPosition();
     Serial.print("heading: ");
     Serial.println(gyroHeading);
-    Serial.print("Step Length: ");
-    Serial.println(previous_step_length);
-    Serial.print("Position: ");
-    Serial.print("\t");
-    Serial.print(previous_position.x);
-    Serial.print("\t");
-    Serial.println(previous_position.y);
+    // Serial.print("Step Length: ");
+    // Serial.println(previous_step_length);
+    // Serial.print("Position: ");
+    // Serial.print("\t");
+    // Serial.print(previous_position.x);
+    // Serial.print("\t");
+    // Serial.println(previous_position.y);
+    // Serial.print(F("Distance travelled: "));
+    // Serial.println(getDistanceFromOrigin());
+    // Serial.println(F("================================================================="));
 
     // optimalGPSAlgorithm()  //Call optimal code usage //uncommend to enable
 
@@ -121,11 +154,10 @@ void loop()
       {
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
-
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
         {
-          Serial.println("WARNING: Was a false alarm");
+          // Serial.println("WARNING: Was a false alarm");
           isOutsidePerimeter = false; // set flag is in perimeter
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
@@ -139,7 +171,7 @@ void loop()
       // Check distance from origin not to exceed HOME_RADIUS
       if (getDistanceFromOrigin() >= HOME_RADIUS)
       {
-        Serial.println("Inertia out of perimeter");
+        // Serial.println("out of perimeter detected by inertial sensors.");
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
 
@@ -179,11 +211,17 @@ void loop()
         }
       }
     }
+    // Serial.print("Voltage: ");
+    // Serial.print(lipo.getVoltage());  // Print the battery voltage
+    // Serial.print("V");
+
+    // Serial.print(" Percentage: ");
+    // Serial.print(lipo.getSOC(), 2); // Print the battery state of charge with 2 decimal places
+    // Serial.println("%");
   }
 
-  delay(50); // delay to sample meaningful values
+  delay(1000); // delay to sample meaningful values
 }
-
 // Function to optimize GPS sampling
 void optimalGPSAlgorithm()
 {
@@ -294,6 +332,7 @@ bool stepDetected()
   {
     peak = accelMagnitude;
   }
+    return true;
 
   return detectedStep;
 }
@@ -301,16 +340,35 @@ bool stepDetected()
 // Function to compute the heading
 void computeHeading()
 {
-  float gyroX = mpu.getRotationX() / 131.0;
-  float gyroY = mpu.getRotationY() / 131.0;
-  float gyroZ = mpu.getRotationZ() / 131.0;
+  // float gyroX = mpu.getRotationX() / 131.0;
+  // float gyroY = mpu.getRotationY() / 131.0;
+  // float gyroZ = mpu.getRotationZ() / 131.0;
 
-  gyroHeading = atan2(gyroY, gyroX) * 180 / M_PI;
+  // gyroHeading = atan2(gyroY, gyroX) * 180 / M_PI;
 
-  if (gyroHeading < 0)
+  // if (gyroHeading < 0)
+  // {
+  //   gyroHeading += 360;
+  // }
+    // get the latest sensor readings from the MPU6050
+  mpu.getFIFOBytes(fifoBuffer, sizeof(fifoBuffer)); // read the fifo data into the fifoBuffer
+
+  // check if there is new data in the FIFO buffer
+  if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer))
   {
-    gyroHeading += 360;
+    // Get the quaternion values
+    Quaternion q;
+    mpu.dmpGetQuaternion(&q, fifoBuffer);
+
+    // Calculate the gyroHeading angle
+    gyroHeading = atan2(2 * q.x * q.y - 2 * q.w * q.z, 2 * q.w * q.w + 2 * q.x * q.x - 1);
+    gyroHeading = gyroHeading * 180 / M_PI; // Convert from radians to degrees
+    if (gyroHeading < 0)
+    {
+      gyroHeading += 360; // Ensure that gyroHeading is between 0 and 360 degrees
+    }
   }
+  
 }
 
 // Function to apply a low-pass filter to acceleration data
@@ -333,19 +391,19 @@ void applyLowPassFilter()
 // Function to calibrate MPU6050
 void calibrateMPU6050()
 {
-  // // Load the DMP firmware onto the MPU6050
-  // uint8_t devStatus = mpu.dmpInitialize();
-  // if (devStatus == 0)
-  // {
-  //   mpu.setDMPEnabled(true);
-  //   Serial.println(F("DMP initialized."));
-  // }
-  // else
-  // {
-  //   Serial.print(F("DMP initialization failed (code "));
-  //   Serial.print(devStatus);
-  //   Serial.println(F(")"));
-  // }
+  // Load the DMP firmware onto the MPU6050
+  uint8_t devStatus = mpu.dmpInitialize();
+  if (devStatus == 0)
+  {
+    mpu.setDMPEnabled(true);
+    Serial.println(F("DMP initialized."));
+  }
+  else
+  {
+    Serial.print(F("DMP initialization failed (code "));
+    Serial.print(devStatus);
+    Serial.println(F(")"));
+  }
 
   const int numSamples = 100;
 
@@ -391,16 +449,16 @@ float getDistanceFromOrigin()
 // get current GPS coordinates latitude and longitude
 void readGPS()
 {
-  if (digitalRead(GPS_SWITCH) == 0)
+  // if (digitalRead(GPS_SWITCH) == 0)
+  // {
+  //   digitalWrite(GPS_SWITCH, HIGH); // switch on gps, to get intial readings
+  //   delay(100);                     // latch for operation
+  //   Serial.println("GPS started");
+  // }
+  while (gpsSerial.available() > 0)
   {
-    digitalWrite(GPS_SWITCH, HIGH); // switch on gps, to get intial readings
-    delay(100);                     // latch for operation
-    Serial.println("GPS started");
-  }
-  while (Serial2.available() > 0)
-  {
-    // Serial.println(Serial2.read());
-    gps.encode(Serial2.read());
+    //Serial.print(char(gpsSerial.read()));
+    gps.encode(gpsSerial.read());
     if (gps.location.isValid() && gps.location.isUpdated())
     {
       // Serial.println("GPS Connected");
@@ -490,4 +548,26 @@ void decreaseGPSSamplingRate()
   // Serial.println("INFO: Decreasing sampling rate");
   currentGPSSamplingInterval = currentGPSSamplingInterval * SAMPLING_FACTOR;
   currentGPSSamplingInterval = min(currentGPSSamplingInterval, HIGHEST_GPS_SAMPLING_INTERVAL);
+}
+void init_rak3172()
+{
+  Serial.println(F("initializing rak3172 module for LORAWAN"));
+  Serial2.println("AT");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
+  Serial2.println("ATZ");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
+  Serial2.println("AT+NWM=1");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
+  Serial2.println("AT+NJM=1");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
+  Serial2.println("AT+CLASS=A");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
+  Serial2.println("AT+BAND=4");
+  while(!Serial2.available());
+  Serial.println(Serial2.readString());
 }
