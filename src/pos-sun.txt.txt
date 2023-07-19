@@ -1,91 +1,1343 @@
-1.56,-12.43
-1.53,-12.06
-1.45,-12.41
-1.23,-12.10
-1.31,-12.46
-1.56,-12.79
-1.57,-13.18
-1.53,-13.60
-1.72,-13.96
-1.86,-14.35
-1.87,-14.77
-1.70,-14.42
-2.04,-15.11
-2.30,-15.44
-2.14,-15.81
-2.42,-16.09
-2.82,-15.97
-2.89,-16.35
-2.80,-16.72
-2.67,-17.11
-2.37,-16.88
-2.56,-17.26
-2.81,-17.45
-2.69,-17.85
-2.73,-18.26
-2.83,-18.67
-3.11,-18.91
-3.29,-19.24
-3.55,-19.56
-3.24,-19.78
-3.36,-20.15
-3.09,-20.50
-2.94,-20.17
-2.98,-20.55
-3.27,-20.84
-3.36,-21.23
-3.73,-21.11
-4.02,-21.42
-4.36,-21.54
-4.65,-21.25
-5.00,-21.41
-4.71,-22.17
-4.91,-22.53
-4.71,-22.88
-5.08,-22.84
-5.40,-22.69
-6.48,-22.56
-5.59,-22.80
-7.03,-23.61
-7.30,-22.45
-8.05,-22.81
-7.34,-22.41
-6.76,-23.00
-6.53,-22.69
-7.16,-23.19
-6.96,-22.86
-6.74,-22.55
-7.02,-22.69
-6.80,-22.38
-7.76,-23.04
-7.42,-22.82
-8.16,-23.01
-8.06,-22.65
-8.25,-22.99
-8.58,-22.79
-8.29,-22.58
-7.94,-22.42
-7.73,-22.10
-7.55,-21.79
-8.01,-21.13
-7.62,-21.05
-7.37,-20.75
-8.11,-20.48
-7.84,-20.24
-8.22,-20.39
-8.56,-20.51
-8.68,-20.16
-9.00,-19.97
-8.76,-19.68
-8.49,-19.42
-8.70,-19.73
-8.97,-20.05
-9.70,-20.29
-9.46,-20.01
-9.07,-20.01
-9.65,-19.46
-9.30,-18.76
-9.63,-18.95
-9.24,-18.93
-8.93,-18.74
-9.29,-18.89
+heading: 25.10
+Step Length: 0.85
+Position: 	0.77	0.36
+	Steps: 1Distance travelled: 0.85
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 49.95
+Step Length: 0.68
+Position: 	1.21	0.88
+	Steps: 2Distance travelled: 1.50
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 25.00
+Step Length: 0.89
+Position: 	2.01	1.26
+	Steps: 3Distance travelled: 2.37
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1184
+load:0x40078000,len:13104
+load:0x40080400,len:3036
+entry 0x400805e4
+[    52][E][Wire.cpp:499] requestFrom(): i2cWriteReadNonStop returned Error 263
+Scanning for I2C devices ...
+I2C device found at address 0x36
+I2C device found at address 0x68
+DMP initialized.
+initializing rak3172 module for LORAWAN
+⸮;Ĵ⸮<D$⸮⸮⸮⸮⸮⸮$⸮G$;$⸮;⸮##⸮$⸮⸮⸮⸮$$$;⸮⸮⸮48⸮⸮'7⸮⸮⸮⸮$⸮$⸮⸮⸮⸮⸮⸮X$⸮⸮⸮ ?⸮$⸮$;$⸮⸮''⸮t;'##⸮ۤ⸮⸮⸮⸮⸮ ÷;⸮⸮#⸮##⸮⸮⸮#⸮##⸮⸮<ܣ⸮8⸮⸮⸮<⸮#⸮#'⸮⸮<⸮##_⸮ܼ⸮#$ ;⸮'⸮⸮⸮⸮⸮?⸮#⸮⸮'⸮8'\⸮⸮#Ĵ 8⸮⸮⸮#;⸮⸮\⸮⸮#'⸮<#$$⸮48⸮'⸮#⸮⸮⸮⸮#⸮⸮<⸮$t$G$8⸮⸮⸮⸮⸮⸮#'⸮#⸮⸮⸮⸮$⸮'_<⸮⸮⸮⸮⸮⸮$ ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1184
+load:0x40078000,len:13104
+load:0x40080400,len:3036
+entry 0x400805e4
+Scanning for I2C devices ...
+I2C device found at address 0x36
+I2C device found at address 0x68
+DMP initialized.
+initializing rak3172 module for LORAWAN
+OK
+
+OK
+
+
+RAKwireless RAK11720 BLE Example
+------------------------------------------------------
+Current Work Mode: LoRaWAN.
+
+OK
+OK
+
+OK
+
+heading: 86.40
+Step Length: 0.61
+Position: 	0.04	0.61
+	Steps: 1Distance travelled: 0.61
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 81.39
+Step Length: 0.52
+Position: 	0.12	1.13
+	Steps: 2Distance travelled: 1.13
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 61.95
+Step Length: 1.55
+Position: 	0.84	2.49
+	Steps: 3Distance travelled: 2.63
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 63.28
+Step Length: 0.67
+Position: 	1.14	3.09
+	Steps: 4Distance travelled: 3.29
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 73.66
+Step Length: 0.40
+Position: 	1.26	3.47
+	Steps: 5Distance travelled: 3.69
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 73.09
+Step Length: 0.75
+Position: 	1.47	4.19
+	Steps: 6Distance travelled: 4.44
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 68.69
+Step Length: 0.52
+Position: 	1.66	4.67
+	Steps: 7Distance travelled: 4.95
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 75.49
+Step Length: 0.53
+Position: 	1.79	5.18
+	Steps: 8Distance travelled: 5.48
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 65.79
+Step Length: 0.53
+Position: 	2.01	5.67
+	Steps: 9Distance travelled: 6.01
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 60.25
+Step Length: 0.48
+Position: 	2.25	6.08
+	Steps: 10Distance travelled: 6.48
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 48.66
+Step Length: 0.84
+Position: 	2.81	6.71
+	Steps: 11Distance travelled: 7.28
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 59.20
+Step Length: 0.52
+Position: 	3.07	7.16
+	Steps: 12Distance travelled: 7.79
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 50.65
+Step Length: 0.48
+Position: 	3.38	7.53
+	Steps: 13Distance travelled: 8.25
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 70.10
+Step Length: 1.02
+Position: 	3.72	8.49
+	Steps: 14Distance travelled: 9.27
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 46.58
+Step Length: 0.53
+Position: 	4.09	8.88
+	Steps: 15Distance travelled: 9.77
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 62.51
+Step Length: 0.51
+Position: 	4.33	9.33
+	Steps: 16Distance travelled: 10.29
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 81.79
+Step Length: 1.33
+Position: 	4.52	10.65
+	Steps: 17Distance travelled: 11.57
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 72.08
+Step Length: 0.69
+Position: 	4.73	11.31
+	Steps: 18Distance travelled: 12.26
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 343.80
+Step Length: 0.65
+Position: 	5.36	11.13
+	Steps: 19Distance travelled: 12.35
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 61.74
+Step Length: 1.07
+Position: 	5.86	12.07
+	Steps: 20Distance travelled: 13.41
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 73.63
+Step Length: 0.72
+Position: 	6.07	12.76
+	Steps: 21Distance travelled: 14.13
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 78.27
+Step Length: 0.52
+Position: 	6.17	13.26
+	Steps: 22Distance travelled: 14.63
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 69.34
+Step Length: 0.87
+Position: 	6.48	14.08
+	Steps: 23Distance travelled: 15.50
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 60.99
+Step Length: 0.54
+Position: 	6.74	14.55
+	Steps: 24Distance travelled: 16.04
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 75.01
+Step Length: 0.54
+Position: 	6.88	15.08
+	Steps: 25Distance travelled: 16.57
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 51.91
+Step Length: 1.00
+Position: 	7.50	15.87
+	Steps: 26Distance travelled: 17.55
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 53.33
+Step Length: 1.12
+Position: 	8.17	16.77
+	Steps: 27Distance travelled: 18.66
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 67.01
+Step Length: 0.52
+Position: 	8.37	17.25
+	Steps: 28Distance travelled: 19.17
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 64.16
+Step Length: 1.07
+Position: 	8.84	18.21
+	Steps: 29Distance travelled: 20.24
+=================================================================
+out of perimeter detected by inertial sensors.
+GPS is turned off, or in standby mode
+GPS is turned off, or in standby mode
+Turing gps on now
+GPS is turned off, or in standby mode
+WARNING: User out of perimeter
+Voltage: 3.91V Percentage: 61.38%
+heading: 74.66
+Step Length: 0.50
+Position: 	8.97	18.70
+	Steps: 30Distance travelled: 20.74
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 69.09
+Step Length: 0.54
+Position: 	9.17	19.20
+	Steps: 31Distance travelled: 21.27
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 65.59
+Step Length: 0.53
+Position: 	9.39	19.69
+	Steps: 32Distance travelled: 21.81
+=================================================================
+Voltage: 3.91V Percentage: 61.38%
+heading: 58.96
+Step Length: 0.72
+Position: 	9.76	20.30
+	Steps: 33Distance travelled: 22.53
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 66.59
+Step Length: 0.52
+Position: 	9.97	20.78
+	Steps: 34Distance travelled: 23.05
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 61.43
+Step Length: 0.55
+Position: 	10.23	21.27
+	Steps: 35Distance travelled: 23.60
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 17.84
+Step Length: 0.55
+Position: 	10.75	21.44
+	Steps: 36Distance travelled: 23.98
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 72.44
+Step Length: 0.55
+Position: 	10.92	21.96
+	Steps: 37Distance travelled: 24.53
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 88.04
+Step Length: 0.47
+Position: 	10.94	22.44
+	Steps: 38Distance travelled: 24.96
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 88.82
+Step Length: 0.48
+Position: 	10.95	22.92
+	Steps: 39Distance travelled: 25.40
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 84.48
+Step Length: 0.47
+Position: 	10.99	23.39
+	Steps: 40Distance travelled: 25.84
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 88.32
+Step Length: 0.46
+Position: 	11.00	23.85
+	Steps: 41Distance travelled: 26.27
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 84.45
+Step Length: 0.54
+Position: 	11.06	24.39
+	Steps: 42Distance travelled: 26.78
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 87.48
+Step Length: 0.54
+Position: 	11.08	24.93
+	Steps: 43Distance travelled: 27.28
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 92.28
+Step Length: 0.51
+Position: 	11.06	25.44
+	Steps: 44Distance travelled: 27.74
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 89.63
+Step Length: 0.71
+Position: 	11.06	26.15
+	Steps: 45Distance travelled: 28.40
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 90.44
+Step Length: 0.51
+Position: 	11.06	26.66
+	Steps: 46Distance travelled: 28.86
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 93.38
+Step Length: 0.53
+Position: 	11.03	27.19
+	Steps: 47Distance travelled: 29.34
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 96.38
+Step Length: 0.45
+Position: 	10.98	27.64
+	Steps: 48Distance travelled: 29.74
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 101.34
+Step Length: 0.54
+Position: 	10.87	28.16
+	Steps: 49Distance travelled: 30.19
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 100.34
+Step Length: 0.44
+Position: 	10.79	28.60
+	Steps: 50Distance travelled: 30.57
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 106.04
+Step Length: 0.53
+Position: 	10.65	29.11
+	Steps: 51Distance travelled: 31.00
+=================================================================
+Voltage: 3.91V Percentage: 61.52%
+heading: 105.02
+Step Length: 0.74
+Position: 	10.45	29.83
+	Steps: 52Distance travelled: 31.61
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 102.94
+Step Length: 0.68
+Position: 	10.30	30.49
+	Steps: 53Distance travelled: 32.19
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 106.69
+Step Length: 0.52
+Position: 	10.15	30.99
+	Steps: 54Distance travelled: 32.61
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 104.29
+Step Length: 0.69
+Position: 	9.98	31.66
+	Steps: 55Distance travelled: 33.20
+=================================================================
+GPS is currently on
+Turing gps off with PMTK command
+GPS is currently on
+Voltage: 3.91V Percentage: 61.66%
+heading: 101.17
+Step Length: 0.51
+Position: 	9.88	32.16
+	Steps: 56Distance travelled: 33.65
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 105.84
+Step Length: 0.41
+Position: 	9.77	32.56
+	Steps: 57Distance travelled: 33.99
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 102.80
+Step Length: 0.72
+Position: 	9.61	33.26
+	Steps: 58Distance travelled: 34.62
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 116.24
+Step Length: 0.46
+Position: 	9.41	33.67
+	Steps: 59Distance travelled: 34.96
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 83.45
+Step Length: 0.49
+Position: 	9.46	34.15
+	Steps: 60Distance travelled: 35.44
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 93.54
+Step Length: 0.70
+Position: 	9.42	34.85
+	Steps: 61Distance travelled: 36.10
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 83.32
+Step Length: 0.46
+Position: 	9.47	35.31
+	Steps: 62Distance travelled: 36.56
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 78.89
+Step Length: 0.91
+Position: 	9.65	36.20
+	Steps: 63Distance travelled: 37.47
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 85.63
+Step Length: 1.00
+Position: 	9.73	37.20
+	Steps: 64Distance travelled: 38.45
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 91.67
+Step Length: 0.53
+Position: 	9.71	37.73
+	Steps: 65Distance travelled: 38.96
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 87.88
+Step Length: 0.67
+Position: 	9.74	38.41
+	Steps: 66Distance travelled: 39.62
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 83.26
+Step Length: 0.98
+Position: 	9.85	39.38
+	Steps: 67Distance travelled: 40.60
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 81.82
+Step Length: 0.48
+Position: 	9.92	39.86
+	Steps: 68Distance travelled: 41.08
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 85.23
+Step Length: 0.46
+Position: 	9.96	40.32
+	Steps: 69Distance travelled: 41.53
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 80.91
+Step Length: 0.49
+Position: 	10.04	40.80
+	Steps: 70Distance travelled: 42.02
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 64.59
+Step Length: 0.69
+Position: 	10.33	41.43
+	Steps: 71Distance travelled: 42.69
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 304.58
+Step Length: 0.52
+Position: 	10.63	41.00
+	Steps: 72Distance travelled: 42.35
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 280.58
+Step Length: 0.52
+Position: 	10.72	40.48
+	Steps: 73Distance travelled: 41.88
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 280.52
+Step Length: 0.52
+Position: 	10.82	39.97
+	Steps: 74Distance travelled: 41.41
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 281.70
+Step Length: 0.55
+Position: 	10.93	39.43
+	Steps: 75Distance travelled: 40.91
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 284.70
+Step Length: 0.49
+Position: 	11.06	38.95
+	Steps: 76Distance travelled: 40.49
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 278.22
+Step Length: 0.55
+Position: 	11.13	38.41
+	Steps: 77Distance travelled: 39.99
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 278.74
+Step Length: 0.53
+Position: 	11.21	37.89
+	Steps: 78Distance travelled: 39.51
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 285.18
+Step Length: 0.49
+Position: 	11.34	37.42
+	Steps: 79Distance travelled: 39.10
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 288.99
+Step Length: 0.56
+Position: 	11.53	36.89
+	Steps: 80Distance travelled: 38.64
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 286.29
+Step Length: 0.55
+Position: 	11.68	36.36
+	Steps: 81Distance travelled: 38.19
+=================================================================
+Voltage: 3.91V Percentage: 61.66%
+heading: 319.08
+Step Length: 0.58
+Position: 	12.12	35.98
+	Steps: 82Distance travelled: 37.96
+=================================================================
+GPS is currently on
+Turing gps off with PMTK command
+GPS is currently on
+Voltage: 3.91V Percentage: 61.81%
+heading: 277.63
+Step Length: 0.54
+Position: 	12.19	35.45
+	Steps: 83Distance travelled: 37.48
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 278.87
+Step Length: 0.48
+Position: 	12.26	34.97
+	Steps: 84Distance travelled: 37.06
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 274.88
+Step Length: 0.45
+Position: 	12.30	34.52
+	Steps: 85Distance travelled: 36.65
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 266.59
+Step Length: 0.50
+Position: 	12.27	34.02
+	Steps: 86Distance travelled: 36.16
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 270.24
+Step Length: 0.54
+Position: 	12.27	33.47
+	Steps: 87Distance travelled: 35.65
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 272.45
+Step Length: 0.54
+Position: 	12.29	32.93
+	Steps: 88Distance travelled: 35.15
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 271.93
+Step Length: 1.05
+Position: 	12.33	31.88
+	Steps: 89Distance travelled: 34.18
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 274.12
+Step Length: 0.52
+Position: 	12.37	31.36
+	Steps: 90Distance travelled: 33.71
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 274.98
+Step Length: 0.68
+Position: 	12.43	30.68
+	Steps: 91Distance travelled: 33.10
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 275.57
+Step Length: 0.67
+Position: 	12.49	30.02
+	Steps: 92Distance travelled: 32.51
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 311.23
+Step Length: 0.52
+Position: 	12.83	29.63
+	Steps: 93Distance travelled: 32.29
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 321.59
+Step Length: 0.46
+Position: 	13.20	29.34
+	Steps: 94Distance travelled: 32.17
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 47.93
+Step Length: 0.53
+Position: 	13.55	29.74
+	Steps: 95Distance travelled: 32.68
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 62.72
+Step Length: 0.52
+Position: 	13.79	30.20
+	Steps: 96Distance travelled: 33.20
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 77.63
+Step Length: 0.70
+Position: 	13.94	30.89
+	Steps: 97Distance travelled: 33.89
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 81.97
+Step Length: 0.69
+Position: 	14.04	31.57
+	Steps: 98Distance travelled: 34.55
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 79.17
+Step Length: 0.89
+Position: 	14.21	32.45
+	Steps: 99Distance travelled: 35.42
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 84.54
+Step Length: 0.48
+Position: 	14.25	32.93
+	Steps: 100Distance travelled: 35.88
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 81.44
+Step Length: 0.51
+Position: 	14.33	33.43
+	Steps: 101Distance travelled: 36.38
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 78.48
+Step Length: 0.51
+Position: 	14.43	33.94
+	Steps: 102Distance travelled: 36.88
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 84.55
+Step Length: 0.49
+Position: 	14.48	34.43
+	Steps: 103Distance travelled: 37.35
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 84.82
+Step Length: 0.52
+Position: 	14.53	34.95
+	Steps: 104Distance travelled: 37.85
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 81.85
+Step Length: 0.68
+Position: 	14.62	35.62
+	Steps: 105Distance travelled: 38.51
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 72.32
+Step Length: 1.59
+Position: 	15.11	37.13
+	Steps: 106Distance travelled: 40.09
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 74.35
+Step Length: 0.89
+Position: 	15.35	37.99
+	Steps: 107Distance travelled: 40.97
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 67.00
+Step Length: 1.45
+Position: 	15.91	39.32
+	Steps: 108Distance travelled: 42.42
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 70.95
+Step Length: 0.81
+Position: 	16.18	40.09
+	Steps: 109Distance travelled: 43.23
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 70.16
+Step Length: 1.54
+Position: 	16.70	41.54
+	Steps: 110Distance travelled: 44.77
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 73.77
+Step Length: 1.30
+Position: 	17.06	42.78
+	Steps: 111Distance travelled: 46.06
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 74.94
+Step Length: 0.77
+Position: 	17.26	43.53
+	Steps: 112Distance travelled: 46.83
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 73.08
+Step Length: 0.41
+Position: 	17.38	43.92
+	Steps: 113Distance travelled: 47.23
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 74.13
+Step Length: 0.72
+Position: 	17.58	44.61
+	Steps: 114Distance travelled: 47.95
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 65.47
+Step Length: 1.46
+Position: 	18.18	45.94
+	Steps: 115Distance travelled: 49.41
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 59.60
+Step Length: 0.94
+Position: 	18.66	46.75
+	Steps: 116Distance travelled: 50.34
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 56.79
+Step Length: 0.73
+Position: 	19.06	47.36
+	Steps: 117Distance travelled: 51.05
+=================================================================
+Voltage: 3.91V Percentage: 61.81%
+heading: 43.21
+Step Length: 0.92
+Position: 	19.73	47.99
+	Steps: 118Distance travelled: 51.89
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 6.41
+Step Length: 0.93
+Position: 	20.65	48.09
+	Steps: 119Distance travelled: 52.34
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 64.96
+Step Length: 0.72
+Position: 	20.95	48.75
+	Steps: 120Distance travelled: 53.06
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 63.71
+Step Length: 1.02
+Position: 	21.40	49.66
+	Steps: 121Distance travelled: 54.07
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 75.14
+Step Length: 0.71
+Position: 	21.59	50.35
+	Steps: 122Distance travelled: 54.78
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 75.97
+Step Length: 1.17
+Position: 	21.87	51.48
+	Steps: 123Distance travelled: 55.93
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 83.38
+Step Length: 1.08
+Position: 	21.99	52.55
+	Steps: 124Distance travelled: 56.97
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 83.09
+Step Length: 0.92
+Position: 	22.10	53.46
+	Steps: 125Distance travelled: 57.85
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 86.44
+Step Length: 0.91
+Position: 	22.16	54.37
+	Steps: 126Distance travelled: 58.72
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 84.76
+Step Length: 0.75
+Position: 	22.23	55.12
+	Steps: 127Distance travelled: 59.44
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 83.99
+Step Length: 1.13
+Position: 	22.35	56.25
+	Steps: 128Distance travelled: 60.53
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 82.38
+Step Length: 0.71
+Position: 	22.44	56.96
+	Steps: 129Distance travelled: 61.22
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 77.95
+Step Length: 0.51
+Position: 	22.55	57.46
+	Steps: 130Distance travelled: 61.73
+=================================================================
+GPS is currently on
+Turing gps off with PMTK command
+GPS is currently on
+Latitude: 0.33190500736236572265 Longitude: 32.57070541381835937500
+GPS is currently on
+Turing gps off with PMTK command
+GPS is currently on
+GPS OFF
+Voltage: 3.91V Percentage: 61.95%
+heading: 77.47
+Step Length: 0.56
+Position: 	22.67	58.00
+	Steps: 131Distance travelled: 62.28
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 77.07
+Step Length: 0.44
+Position: 	22.77	58.44
+	Steps: 132Distance travelled: 62.72
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 76.58
+Step Length: 0.96
+Position: 	22.99	59.37
+	Steps: 133Distance travelled: 63.67
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 87.33
+Step Length: 0.93
+Position: 	23.04	60.31
+	Steps: 134Distance travelled: 64.56
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 93.69
+Step Length: 1.06
+Position: 	22.97	61.36
+	Steps: 135Distance travelled: 65.52
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 96.64
+Step Length: 1.09
+Position: 	22.84	62.45
+	Steps: 136Distance travelled: 66.50
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 100.56
+Step Length: 1.54
+Position: 	22.56	63.97
+	Steps: 137Distance travelled: 67.83
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 110.00
+Step Length: 0.56
+Position: 	22.37	64.49
+	Steps: 138Distance travelled: 68.26
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 105.12
+Step Length: 0.89
+Position: 	22.13	65.36
+	Steps: 139Distance travelled: 69.00
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 105.04
+Step Length: 0.72
+Position: 	21.95	66.05
+	Steps: 140Distance travelled: 69.60
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 96.45
+Step Length: 0.67
+Position: 	21.87	66.72
+	Steps: 141Distance travelled: 70.22
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 91.78
+Step Length: 0.53
+Position: 	21.85	67.25
+	Steps: 142Distance travelled: 70.71
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 81.80
+Step Length: 0.77
+Position: 	21.96	68.01
+	Steps: 143Distance travelled: 71.47
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 70.53
+Step Length: 0.73
+Position: 	22.21	68.70
+	Steps: 144Distance travelled: 72.20
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 44.95
+Step Length: 0.54
+Position: 	22.59	69.08
+	Steps: 145Distance travelled: 72.68
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 359.24
+Step Length: 0.68
+Position: 	23.26	69.07
+	Steps: 146Distance travelled: 72.88
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 287.52
+Step Length: 1.16
+Position: 	23.61	67.96
+	Steps: 147Distance travelled: 71.95
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 281.21
+Step Length: 0.47
+Position: 	23.70	67.51
+	Steps: 148Distance travelled: 71.55
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 272.82
+Step Length: 0.50
+Position: 	23.73	67.01
+	Steps: 149Distance travelled: 71.09
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 266.14
+Step Length: 0.51
+Position: 	23.69	66.50
+	Steps: 150Distance travelled: 70.59
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 264.98
+Step Length: 1.17
+Position: 	23.59	65.33
+	Steps: 151Distance travelled: 69.46
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 265.43
+Step Length: 1.48
+Position: 	23.47	63.86
+	Steps: 152Distance travelled: 68.04
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 268.18
+Step Length: 1.58
+Position: 	23.42	62.29
+	Steps: 153Distance travelled: 66.54
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 269.45
+Step Length: 1.10
+Position: 	23.41	61.18
+	Steps: 154Distance travelled: 65.51
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.68
+Step Length: 1.28
+Position: 	23.43	59.90
+	Steps: 155Distance travelled: 64.32
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.68
+Step Length: 1.11
+Position: 	23.44	58.79
+	Steps: 156Distance travelled: 63.29
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 268.64
+Step Length: 1.04
+Position: 	23.42	57.74
+	Steps: 157Distance travelled: 62.31
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 269.85
+Step Length: 0.91
+Position: 	23.41	56.84
+	Steps: 158Distance travelled: 61.47
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 273.20
+Step Length: 1.39
+Position: 	23.49	55.45
+	Steps: 159Distance travelled: 60.22
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.80
+Step Length: 1.06
+Position: 	23.52	54.39
+	Steps: 160Distance travelled: 59.26
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.89
+Step Length: 1.65
+Position: 	23.58	52.74
+	Steps: 161Distance travelled: 57.77
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.77
+Step Length: 1.24
+Position: 	23.60	51.51
+	Steps: 162Distance travelled: 56.66
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.92
+Step Length: 1.46
+Position: 	23.62	50.05
+	Steps: 163Distance travelled: 55.34
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.11
+Step Length: 1.25
+Position: 	23.62	48.80
+	Steps: 164Distance travelled: 54.22
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 272.06
+Step Length: 1.25
+Position: 	23.67	47.55
+	Steps: 165Distance travelled: 53.11
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 270.63
+Step Length: 0.93
+Position: 	23.68	46.62
+	Steps: 166Distance travelled: 52.29
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 272.45
+Step Length: 1.38
+Position: 	23.74	45.24
+	Steps: 167Distance travelled: 51.09
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.51
+Step Length: 1.09
+Position: 	23.76	44.15
+	Steps: 168Distance travelled: 50.14
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 273.18
+Step Length: 1.37
+Position: 	23.84	42.79
+	Steps: 169Distance travelled: 48.98
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.99
+Step Length: 1.19
+Position: 	23.88	41.60
+	Steps: 170Distance travelled: 47.97
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.85
+Step Length: 1.54
+Position: 	23.93	40.06
+	Steps: 171Distance travelled: 46.67
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 272.01
+Step Length: 1.01
+Position: 	23.97	39.06
+	Steps: 172Distance travelled: 45.82
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 271.04
+Step Length: 1.36
+Position: 	23.99	37.69
+	Steps: 173Distance travelled: 44.68
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 275.60
+Step Length: 1.05
+Position: 	24.09	36.65
+	Steps: 174Distance travelled: 43.86
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 276.18
+Step Length: 1.61
+Position: 	24.27	35.05
+	Steps: 175Distance travelled: 42.63
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 272.89
+Step Length: 0.50
+Position: 	24.29	34.55
+	Steps: 176Distance travelled: 42.24
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 273.30
+Step Length: 0.44
+Position: 	24.32	34.12
+	Steps: 177Distance travelled: 41.90
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 277.94
+Step Length: 1.28
+Position: 	24.49	32.85
+	Steps: 178Distance travelled: 40.98
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 273.70
+Step Length: 1.20
+Position: 	24.57	31.66
+	Steps: 179Distance travelled: 40.07
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 274.24
+Step Length: 1.36
+Position: 	24.67	30.30
+	Steps: 180Distance travelled: 39.07
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 276.42
+Step Length: 1.14
+Position: 	24.80	29.17
+	Steps: 181Distance travelled: 38.29
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 278.51
+Step Length: 1.43
+Position: 	25.01	27.75
+	Steps: 182Distance travelled: 37.36
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 280.72
+Step Length: 1.04
+Position: 	25.20	26.73
+	Steps: 183Distance travelled: 36.74
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 284.99
+Step Length: 0.69
+Position: 	25.38	26.07
+	Steps: 184Distance travelled: 36.38
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 283.67
+Step Length: 0.82
+Position: 	25.58	25.27
+	Steps: 185Distance travelled: 35.95
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 286.16
+Step Length: 1.20
+Position: 	25.91	24.12
+	Steps: 186Distance travelled: 35.40
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 285.63
+Step Length: 0.88
+Position: 	26.15	23.27
+	Steps: 187Distance travelled: 35.00
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 287.45
+Step Length: 1.01
+Position: 	26.45	22.31
+	Steps: 188Distance travelled: 34.60
+=================================================================
+Voltage: 3.91V Percentage: 61.95%
+heading: 290.14
+Step Length: 0.85
+Position: 	26.74	21.51
+	Steps: 189Distance travelled: 34.32
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 302.59
+Step Length: 1.06
+Position: 	27.31	20.62
+	Steps: 190Distance travelled: 34.22
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 31.97
+Step Length: 0.84
+Position: 	28.03	21.06
+	Steps: 191Distance travelled: 35.06
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 319.87
+Step Length: 0.68
+Position: 	28.54	20.63
+	Steps: 192Distance travelled: 35.22
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 322.42
+Step Length: 0.87
+Position: 	29.23	20.10
+	Steps: 193Distance travelled: 35.47
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 293.35
+Step Length: 0.52
+Position: 	29.44	19.61
+	Steps: 194Distance travelled: 35.38
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 22.96
+Step Length: 1.20
+Position: 	30.54	20.08
+	Steps: 195Distance travelled: 36.55
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 69.83
+Step Length: 0.89
+Position: 	30.85	20.92
+	Steps: 196Distance travelled: 37.28
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 84.38
+Step Length: 0.68
+Position: 	30.92	21.60
+	Steps: 197Distance travelled: 37.72
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 90.89
+Step Length: 0.68
+Position: 	30.91	22.29
+	Steps: 198Distance travelled: 38.10
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 83.82
+Step Length: 0.70
+Position: 	30.98	22.98
+	Steps: 199Distance travelled: 38.57
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 78.86
+Step Length: 0.81
+Position: 	31.14	23.77
+	Steps: 200Distance travelled: 39.18
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 81.38
+Step Length: 0.83
+Position: 	31.26	24.59
+	Steps: 201Distance travelled: 39.77
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 82.70
+Step Length: 1.37
+Position: 	31.44	25.95
+	Steps: 202Distance travelled: 40.76
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 75.51
+Step Length: 0.71
+Position: 	31.62	26.64
+	Steps: 203Distance travelled: 41.34
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 72.45
+Step Length: 0.69
+Position: 	31.83	27.30
+	Steps: 204Distance travelled: 41.93
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 75.95
+Step Length: 0.67
+Position: 	31.99	27.95
+	Steps: 205Distance travelled: 42.48
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 64.85
+Step Length: 0.69
+Position: 	32.28	28.58
+	Steps: 206Distance travelled: 43.12
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 62.96
+Step Length: 0.66
+Position: 	32.58	29.17
+	Steps: 207Distance travelled: 43.74
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 32.02
+Step Length: 0.45
+Position: 	32.97	29.41
+	Steps: 208Distance travelled: 44.18
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 334.69
+Step Length: 0.65
+Position: 	33.56	29.13
+	Steps: 209Distance travelled: 44.44
+=================================================================
+Voltage: 3.91V Percentage: 62.10%
+heading: 287.81
+Step Length: 0.68
+Position: 	33.77	28.49
+	Steps: 210Distance travelled: 44.18
+=================================================================
+Voltage: 3.91V Percentage: 62.10%

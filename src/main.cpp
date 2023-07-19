@@ -55,8 +55,9 @@ bool isMovingAway = false;
 
 unsigned long stepCounter = 0;
 
-float currentLatitude = 0.0;
-float currentLongitude = 0.0;
+//REMOVE THE DEFAULT COORDINATES
+float currentLatitude = 0.33237001299858093261;
+float currentLongitude = 32.57057189941406250000;
 
 float HOME_RADIUS = 20.0; // in meters
 
@@ -125,7 +126,7 @@ void setup()
   //Serial.println(CheckGps());
   //toggleGps();
   //CheckGps();
-  readGPS();
+  // readGPS();
 }
 void loop()
 {
