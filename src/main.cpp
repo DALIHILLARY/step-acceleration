@@ -53,10 +53,12 @@ unsigned long lastGPSSamplingTime = millis();                  // the last time 
 bool isOutsidePerimeter = false;
 bool isMovingAway = false;
 
+unsigned long stepCounter = 0;
+
 float currentLatitude = 0.0;
 float currentLongitude = 0.0;
 
-float HOME_RADIUS = 10.0; // in meters
+float HOME_RADIUS = 20.0; // in meters
 
 TinyGPSPlus gps; // The TinyGPS++ object
 
@@ -119,8 +121,11 @@ void setup()
   // Calibrate MPU6050
   calibrateMPU6050();
   init_rak3172(); //initialize lorawan communcation
+ //gpsSerial.println("$PMTK161,0*28");//this turn the gps off
   //Serial.println(CheckGps());
   //toggleGps();
+  //CheckGps();
+  readGPS();
 }
 void loop()
 {
@@ -136,9 +141,10 @@ void loop()
     {
       gpsSerial.println(command);
     }
-    else if(command=="R")
+    else if(command=="rr")
     {
       esp_restart();
+      //esp_cpu_reset();
     }
     else;
   }
@@ -162,6 +168,9 @@ void loop()
     Serial.print(previous_position.x);
     Serial.print("\t");
     Serial.println(previous_position.y);
+    Serial.print("\t");
+    Serial.print("Steps: ");
+    Serial.print(stepCounter);
     Serial.print(F("Distance travelled: "));
     Serial.println(getDistanceFromOrigin());
     Serial.println(F("================================================================="));
@@ -171,19 +180,23 @@ void loop()
     // Check is user is already outside the perimeter
     if (isOutsidePerimeter)
     {
+      if (getDistanceFromOrigin() <= HOME_RADIUS)
+      {
+        Serial.println("Is back in perimeter detected by inertial sensors.");
+      }
       // TODO : Send distress signals to concerned people every 1 minute
-      if (millis() - previousActiveTransmission >= 1800000)
+      if (millis() - previousActiveTransmission >= 60000)
       {
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
         {
-          // Serial.println("WARNING: Was a false alarm");
+          Serial.println("INFO 4 gps: Person is Back in Perimeter");
           isOutsidePerimeter = false; // set flag is in perimeter
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
-        }
+        } 
         previousActiveTransmission = millis();
         // TODO : Send distress signals to concerned people
       }
@@ -193,7 +206,7 @@ void loop()
       // Check distance from origin not to exceed HOME_RADIUS
       if (getDistanceFromOrigin() >= HOME_RADIUS)
       {
-        // Serial.println("out of perimeter detected by inertial sensors.");
+        Serial.println("out of perimeter detected by inertial sensors.");
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
 
@@ -242,7 +255,7 @@ void loop()
     Serial.println("%");
   }
 
-  delay(1000); // delay to sample meaningful values
+  delay(10); // delay to sample meaningful values
 }
 // Function to optimize GPS sampling
 void optimalGPSAlgorithm()
@@ -342,6 +355,11 @@ bool stepDetected()
 
     // compute step length
     previous_step_length = makovStepLength();
+
+    if (previous_step_length <= 0.4 ) {
+      return false;
+    }
+    stepCounter = stepCounter + 1;
     valley = accelMagnitude;
     detectedStep = true;
   }
@@ -354,7 +372,7 @@ bool stepDetected()
   {
     peak = accelMagnitude;
   }
-    return true;
+    //return true;
 
   return detectedStep;
 }
@@ -477,6 +495,8 @@ void readGPS()
   //   delay(100);                     // latch for operation
   //   Serial.println("GPS started");
   // }
+  //gpsSerial.println("$PMTK161,0*28"); //this turn the gps on//
+  toggleGps();
   while (gpsSerial.available() > 0)
   {
     //Serial.print(char(gpsSerial.read()));
@@ -496,6 +516,7 @@ void readGPS()
       digitalWrite(GPS_SWITCH, LOW); // Turn off GPS
       toggleGps();
       Serial.println("GPS OFF");
+      gpsSerial.println("$PMTK161,0*28");//this turn the gps off
       break;
     }
   }
@@ -617,7 +638,7 @@ void toggleGps()
   else if (CheckGps()==false)
   {
     Serial.println(F("Turing gps on now"));
-    gpsSerial.println("x"); //sending any data on the gps serial port will turn it back on from standby mode according to the datasheet;
+    gpsSerial.println("$PMTK161,0*28"); //sending any data on the gps serial port will turn it back on from standby mode according to the datasheet;
     CheckGps(); // confirm turing on;
   }
 }
