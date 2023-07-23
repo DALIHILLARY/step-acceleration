@@ -5,6 +5,7 @@
 #include "I2Cdev.h"
 #include <math.h>
 #include <HardwareSerial.h>
+#include <BluetoothSerial.h>
 #include <SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library.h>
 #define Rak3172_TX 17
 #define Rak3172_RX 16 
@@ -13,7 +14,11 @@
 #define GPS_SWITCH 14
 #define INTERRUPT_PIN 2
 #define FIFO_BUFFER_SIZE 42 // maximum packet size plus 2 for the header bytes
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
 MPU6050 mpu;
+BluetoothSerial SerialBT;
 HardwareSerial gpsSerial(1);
 float HOME_LATITUDE = 0.0;
 float HOME_LONGITUDE = 0.0;
@@ -107,6 +112,7 @@ float valley = 0;
 void setup()
 {
   Wire.begin();
+  SerialBT.begin("smartGeoTracker"); //Bluetooth device name
   Serial.begin(115200);
   Serial2.begin(115200,SERIAL_8N1,Rak3172_RX,Rak3172_TX); // GPS baud rate
   gpsSerial.begin(9600,SERIAL_8N1,GPS_RX,GPS_TX);
@@ -115,6 +121,7 @@ void setup()
   pinMode(INTERRUPT_PIN, INPUT);
   pinMode(GPS_SWITCH, OUTPUT); // use digital pin 18 to toggle the GPS
   scanI2c();
+
   if (lipo.begin() == false) // Connect to the MAX17048 using the default wire port
   {
     Serial.println(F("MAX17048 not detected. Please check wiring. Freezing."));
@@ -127,7 +134,7 @@ void setup()
   //toggleGps();
   //CheckGps();
   // readGPS();
-}
+} 
 void loop()
 {
   //readGPS();
@@ -151,7 +158,7 @@ void loop()
   }
   while(Serial2.available())
   {
-    Serial.println(Serial2.readString());
+    SerialBT.println(Serial2.readString());
   }
   // if(gpsSerial.available()>0)
   // {
@@ -160,21 +167,21 @@ void loop()
   if (stepDetected())
   {
     previous_position = getCurrentPosition();
-    Serial.print("heading: ");
-    Serial.println(gyroHeading);
-    Serial.print("Step Length: ");
-    Serial.println(previous_step_length);
-    Serial.print("Position: ");
-    Serial.print("\t");
-    Serial.print(previous_position.x);
-    Serial.print("\t");
-    Serial.println(previous_position.y);
-    Serial.print("\t");
-    Serial.print("Steps: ");
-    Serial.print(stepCounter);
-    Serial.print(F("Distance travelled: "));
-    Serial.println(getDistanceFromOrigin());
-    Serial.println(F("================================================================="));
+    SerialBT.print("heading: ");
+    SerialBT.println(gyroHeading);
+    SerialBT.print("Step Length: ");
+    SerialBT.println(previous_step_length);
+    SerialBT.print("Position: ");
+    SerialBT.print("\t");
+    SerialBT.print(previous_position.x);
+    SerialBT.print("\t");
+    SerialBT.println(previous_position.y);
+    SerialBT.print("\t");
+    SerialBT.print("Steps: ");
+    SerialBT.print(stepCounter);
+    SerialBT.print(F("Distance travelled: "));
+    SerialBT.println(getDistanceFromOrigin());
+    SerialBT.println(F("================================================================="));
 
     // optimalGPSAlgorithm()  //Call optimal code usage //uncommend to enable
 
@@ -183,7 +190,7 @@ void loop()
     {
       if (getDistanceFromOrigin() <= HOME_RADIUS)
       {
-        Serial.println("Is back in perimeter detected by inertial sensors.");
+        SerialBT.println("Is back in perimeter detected by inertial sensors.");
       }
       // TODO : Send distress signals to concerned people every 1 minute
       if (millis() - previousActiveTransmission >= 60000)
@@ -193,7 +200,7 @@ void loop()
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
         {
-          Serial.println("INFO 4 gps: Person is Back in Perimeter");
+          SerialBT.println("INFO 4 gps: Person is Back in Perimeter");
           isOutsidePerimeter = false; // set flag is in perimeter
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
@@ -207,21 +214,21 @@ void loop()
       // Check distance from origin not to exceed HOME_RADIUS
       if (getDistanceFromOrigin() >= HOME_RADIUS)
       {
-        Serial.println("out of perimeter detected by inertial sensors.");
+        SerialBT.println("out of perimeter detected by inertial sensors.");
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
 
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
         {
-          Serial.println("WARNING: Was a false alarm");
+          SerialBT.println("WARNING: Was a false alarm");
           isOutsidePerimeter = false; // set flag is in perimeter
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
         }
         else
         {
-          Serial.println("WARNING: User out of perimeter");
+          SerialBT.println("WARNING: User out of perimeter");
           isMovingAway = true;
           isOutsidePerimeter = true; // set flag is outside perimeter
 
@@ -247,13 +254,13 @@ void loop()
         }
       }
     }
-    Serial.print("Voltage: ");
-    Serial.print(lipo.getVoltage());  // Print the battery voltage
-    Serial.print("V");
+    SerialBT.print("Voltage: ");
+    SerialBT.print(lipo.getVoltage());  // Print the battery voltage
+    SerialBT.print("V");
 
-    Serial.print(" Percentage: ");
-    Serial.print(lipo.getSOC(), 2); // Print the battery state of charge with 2 decimal places
-    Serial.println("%");
+    SerialBT.print(" Percentage: ");
+    SerialBT.print(lipo.getSOC(), 2); // Print the battery state of charge with 2 decimal places
+    SerialBT.println("%");
   }
 
   delay(10); // delay to sample meaningful values
@@ -357,7 +364,7 @@ bool stepDetected()
     // compute step length
     previous_step_length = makovStepLength();
 
-    if (previous_step_length <= 0.4 ) {
+    if (previous_step_length <= 0. ) {
       return false;
     }
     stepCounter = stepCounter + 1;
@@ -437,13 +444,13 @@ void calibrateMPU6050()
   if (devStatus == 0)
   {
     mpu.setDMPEnabled(true);
-    Serial.println(F("DMP initialized."));
+    SerialBT.println(F("DMP initialized."));
   }
   else
   {
-    Serial.print(F("DMP initialization failed (code "));
-    Serial.print(devStatus);
-    Serial.println(F(")"));
+    SerialBT.print(F("DMP initialization failed (code "));
+    SerialBT.print(devStatus);
+    SerialBT.println(F(")"));
   }
 
   const int numSamples = 100;
@@ -507,16 +514,16 @@ void readGPS()
       // Serial.println("GPS Connected");
       currentLatitude = gps.location.lat();
       currentLongitude = gps.location.lng();
-      Serial.print("Latitude: ");
-      Serial.print(currentLatitude, 20);
-      Serial.print(" Longitude: ");
-      Serial.println(currentLongitude, 20);
+      SerialBT.print("Latitude: ");
+      SerialBT.print(currentLatitude, 20);
+      SerialBT.print(" Longitude: ");
+      SerialBT.println(currentLongitude, 20);
 
       lastGPSSamplingTime = millis();
 
       digitalWrite(GPS_SWITCH, LOW); // Turn off GPS
       toggleGps();
-      Serial.println("GPS OFF");
+      SerialBT.println("GPS OFF");
       gpsSerial.println("$PMTK161,0*28");//this turn the gps off
       break;
     }
@@ -596,34 +603,34 @@ void decreaseGPSSamplingRate()
 }
 void init_rak3172()
 {
-  Serial.println(F("initializing rak3172 module for LORAWAN"));
+  SerialBT.println(F("initializing rak3172 module for LORAWAN"));
   Serial2.println("AT");
   while(!Serial2.available());
-  Serial.println(Serial2.readString());
+  SerialBT.println(Serial2.readString());
   Serial2.println("AT+NWM=1");
   while(!Serial2.available());
-  Serial.println(Serial2.readString());
+  SerialBT.println(Serial2.readString());
   Serial2.println("AT+NJM=1");
   while(!Serial2.available());
-  Serial.println(Serial2.readString());
+  SerialBT.println(Serial2.readString());
   Serial2.println("AT+CLASS=A");
   while(!Serial2.available());
-  Serial.println(Serial2.readString());
+  SerialBT.println(Serial2.readString());
   Serial2.println("AT+BAND=4");
   while(!Serial2.available());
-  Serial.println(Serial2.readString());
+  SerialBT.println(Serial2.readString());
 }
 bool CheckGps()
 {
   bool gpsStatus=false;
   if(gpsSerial.available()>0)
   {
-    Serial.println(F("GPS is currently on"));
+    SerialBT.println(F("GPS is currently on"));
     gpsStatus=true; // gps is actually on;
   }
   else if(!gpsSerial.available())
   {
-    Serial.println(F("GPS is turned off, or in standby mode"));
+    SerialBT.println(F("GPS is turned off, or in standby mode"));
     gpsStatus=false;
   }
   return gpsStatus;
@@ -632,13 +639,13 @@ void toggleGps()
 {
   if (CheckGps()==true)
   {
-    Serial.println(F("Turing gps off with PMTK command"));
+    SerialBT.println(F("Turing gps off with PMTK command"));
     gpsSerial.println("$PMTK161,0*28");
     CheckGps();
   }
   else if (CheckGps()==false)
   {
-    Serial.println(F("Turing gps on now"));
+    SerialBT.println(F("Turing gps on now"));
     gpsSerial.println("$PMTK161,0*28"); //sending any data on the gps serial port will turn it back on from standby mode according to the datasheet;
     CheckGps(); // confirm turing on;
   }
@@ -646,21 +653,20 @@ void toggleGps()
 void scanI2c() {
   byte error, address;
   int nDevices = 0;
-
-  delay(5000);
+  delay(1000);
   Wire.begin();
-  Serial.println("Scanning for I2C devices ...");
+  SerialBT.println("Scanning for I2C devices ...");
   for(address = 0x01; address < 0x7f; address++){
     Wire.beginTransmission(address);
     error = Wire.endTransmission();
     if (error == 0){
-      Serial.printf("I2C device found at address 0x%02X\n", address);
+      SerialBT.printf("I2C device found at address 0x%02X\n", address);
       nDevices++;
     } else if(error != 2){
-      Serial.printf("Error %d at address 0x%02X\n", error, address);
+      SerialBT.printf("Error %d at address 0x%02X\n", error, address);
     }
   }
   if (nDevices == 0){
-    Serial.println("No I2C devices found");
+    SerialBT.println("No I2C devices found");
   }
 }
