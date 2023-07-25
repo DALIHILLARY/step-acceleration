@@ -134,6 +134,8 @@ void setup()
   //toggleGps();
   //CheckGps();
   readGPS();
+  HOME_LATITUDE = currentLatitude;
+  HOME_LONGITUDE = currentLongitude;  
 } 
 void loop()
 {
@@ -196,6 +198,8 @@ void loop()
       {
         readGPS();                                          // Check the GPS on updated position
         float currentPosition = getGPSDistanceFromOrigin(); // Get the current position
+        Serial.print("Current GPS Distance: ");
+        Serial.println(currentPosition);
         // Check if the new position is within the HOME_RADIUS
         if (currentPosition <= HOME_RADIUS)
         {
@@ -555,6 +559,8 @@ void readGPS()
 // Function to compute GPS distance from home/ origin
 float getGPSDistanceFromOrigin()
 {
+  Serial.print("Home Latitude: "); Serial.println(HOME_LATITUDE);
+  Serial.print("Home Longitude: "); Serial.println(HOME_LONGITUDE);
   float R = 6371;                                              // Radius of the earth in km
   float dLat = (currentLatitude - HOME_LATITUDE) * M_PI / 180; // deg2rad below
   float dLon = (currentLongitude - HOME_LONGITUDE) * M_PI / 180;
