@@ -64,7 +64,7 @@ unsigned long stepCounter = 0;
 float currentLatitude = 0.0;
 float currentLongitude = 0.0;
 
-float HOME_RADIUS = 30.0; // in meters
+float HOME_RADIUS = 20.0; // in meters
 
 TinyGPSPlus gps; // The TinyGPS++ object
 
@@ -371,7 +371,7 @@ bool stepDetected()
     // compute step length
     previous_step_length = makovStepLength();
 
-    if (previous_step_length <= 0. ) {
+    if (previous_step_length <= 0.4 ) {
       return false;
     }
     stepCounter = stepCounter + 1;
@@ -559,8 +559,6 @@ void readGPS()
 // Function to compute GPS distance from home/ origin
 float getGPSDistanceFromOrigin()
 {
-  Serial.print("Home Latitude: "); Serial.println(HOME_LATITUDE);
-  Serial.print("Home Longitude: "); Serial.println(HOME_LONGITUDE);
   float R = 6371;                                              // Radius of the earth in km
   float dLat = (currentLatitude - HOME_LATITUDE) * M_PI / 180; // deg2rad below
   float dLon = (currentLongitude - HOME_LONGITUDE) * M_PI / 180;
