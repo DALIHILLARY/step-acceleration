@@ -9,9 +9,9 @@
 #include <SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library.h>
 #define Rak3172_TX 17
 #define Rak3172_RX 16 
-#define GPS_TX 26
-#define GPS_RX 27
-#define GPS_SWITCH 14
+#define GPS_TX 27
+#define GPS_RX 26
+#define GPS_SWITCH 25
 #define INTERRUPT_PIN 2
 #define FIFO_BUFFER_SIZE 42 // maximum packet size plus 2 for the header bytes
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -156,10 +156,10 @@ void loop()
     }
     else;
   }
-  while(Serial2.available())
-  {
-    Serial.println(Serial2.readString());
-  }
+  // while(Serial2.available())
+  // {
+  //   Serial.println(Serial2.readString());
+  // }
   // if(gpsSerial.available()>0)
   // {
   //   Serial.print(char(gpsSerial.read()));
@@ -203,7 +203,10 @@ void loop()
           isOutsidePerimeter = false; // set flag is in perimeter
           isMovingAway = false;
           // TODO: reset the postioning coordinates for inertia sensor
-        } 
+        } else {
+            Serial.println("INFO 4 gps: Person is still outside Perimeter");
+                                
+          }
         previousActiveTransmission = millis();
         // TODO : Send distress signals to concerned people
       }
@@ -249,6 +252,7 @@ void loop()
         if (millis() - previousIdleTransmission > 1800000)
         {
           // TODO : Send idle transmission to concerned people
+          Serial.println("User still inside the perimeter");    
           previousIdleTransmission = millis();
         }
       }
@@ -496,20 +500,20 @@ float getDistanceFromOrigin()
 // get current GPS coordinates latitude and longitude
 void readGPS()
 {
-  // if (digitalRead(GPS_SWITCH) == 0)
-  // {
-  //   digitalWrite(GPS_SWITCH, HIGH); // switch on gps, to get intial readings
-  //   delay(100);                     // latch for operation
-  //   Serial.println("GPS started");
-  // }
+  if (digitalRead(GPS_SWITCH) == 0)
+  {
+    digitalWrite(GPS_SWITCH, HIGH); // switch on gps, to get intial readings
+    delay(100);                     // latch for operation
+    Serial.println("GPS started");
+  }
   //gpsSerial.println("$PMTK161,0*28"); //this turn the gps on//
-  toggleGps();
+  //toggleGps();
   //break after read coordinate
   while (1) {
     bool gotGPS = false;
       while (gpsSerial.available() > 0)
   {
-    //Serial.print(char(gpsSerial.read()));
+    // Serial.print(char(gpsSerial.read()));
     gps.encode(gpsSerial.read());
     if (gps.location.isValid() && gps.location.isUpdated())
     {
@@ -517,7 +521,8 @@ void readGPS()
       float mCurrentLatitude = gps.location.lat();
       float mCurrentLongitude = gps.location.lng();
 
-      if(mCurrentLatitude != currentLatitude && mCurrentLongitude != currentLongitude) 
+      //If any of the coordinates changes from the previous, then log it
+      if(mCurrentLatitude != currentLatitude || mCurrentLongitude != currentLongitude) 
       {
         gotGPS = true;
         currentLongitude = mCurrentLongitude;
@@ -533,9 +538,9 @@ void readGPS()
 
       if(gotGPS) {
               digitalWrite(GPS_SWITCH, LOW); // Turn off GPS
-      toggleGps();
+      // toggleGps();
       Serial.println("GPS OFF");
-      gpsSerial.println("$PMTK161,0*28");//this turn the gps off
+      // gpsSerial.println("$PMTK161,0*28");//this turn the gps off
       break;
       }
 
